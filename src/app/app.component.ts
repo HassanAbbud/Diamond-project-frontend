@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Diamond-project-frontend';
+  constructor(private primengConfig: PrimeNGConfig) {}
+
+    ngOnInit(): void {
+        this.primengConfig.ripple = true;
+    }
 }
