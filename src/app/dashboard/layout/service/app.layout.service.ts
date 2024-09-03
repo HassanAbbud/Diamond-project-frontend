@@ -25,7 +25,6 @@ export interface AppConfig {
 interface LayoutState {
     staticMenuDesktopInactive: boolean;
     overlayMenuActive: boolean;
-    rightMenuVisible: boolean;
     configSidebarVisible: boolean;
     staticMenuMobileActive: boolean;
     menuHoverActive: boolean;
@@ -51,7 +50,6 @@ export class LayoutService {
     state: LayoutState = {
         staticMenuDesktopInactive: false,
         overlayMenuActive: false,
-        rightMenuVisible: false,
         configSidebarVisible: false,
         staticMenuMobileActive: false,
         menuHoverActive: false,
@@ -154,10 +152,6 @@ export class LayoutService {
 
     onOverlaySubmenuOpen() {
         this.overlayOpen.next(null);
-    }
-
-    showRightMenu() {
-        this.state.rightMenuVisible = true;
     }
 
     showConfigSidebar() {

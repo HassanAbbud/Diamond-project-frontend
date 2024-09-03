@@ -18,16 +18,8 @@ export class AppTopbarComponent {
         this.layoutService.onMenuToggle();
     }
 
-    onProfileButtonClick() {
-        this.layoutService.showRightMenu();
-    }
-
     onSearchClick() {
         this.layoutService.toggleSearchBar();
-    }
-
-    onRightMenuClick() {
-        this.layoutService.showRightMenu();
     }
 
     get logo() {

@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { AppConfigModule } from '../dashboard/layout/config/app.config.module';
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { AppConfigModule } from '../dashboard/layout/config/app.config.module';
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    AppConfigModule
   ]
 })
 export class AuthModule { }

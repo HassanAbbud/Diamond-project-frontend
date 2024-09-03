@@ -17,12 +17,9 @@ import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { StyleClassModule } from 'primeng/styleclass';
-import { AppConfigModule } from './config/app.config.module';
 import { AppLayoutComponent } from './app.layout.component';
-import { AppBreadcrumbComponent } from './breadcrumb/app.breadcrumb.component';
 import { AppSidebarComponent } from './app.sidebar.component';
 import { AppTopbarComponent } from './app.topbar.component';
-import { AppRightMenuComponent } from './app.rightmenu.component';
 import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { AppSearchComponent } from './app.search.component';
@@ -31,10 +28,9 @@ import { AppFooterComponent } from './footer/app.footer.component';
 @NgModule({
     declarations: [
         AppLayoutComponent,
-        AppBreadcrumbComponent,
         AppSidebarComponent,
         AppTopbarComponent,
-        AppRightMenuComponent,
+
         AppMenuComponent,
         AppMenuitemComponent,
         AppSearchComponent,
@@ -57,7 +53,6 @@ import { AppFooterComponent } from './footer/app.footer.component';
         RouterModule,
         DropdownModule,
         DividerModule,
-        AppConfigModule,
         DialogModule,
         StyleClassModule
     ]

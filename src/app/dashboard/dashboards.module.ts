@@ -4,13 +4,15 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { SucursalesComponent } from './pages/sucursales/sucursales.component';
 import { EmpresasComponent } from './pages/empresas/empresas.component';
+import { HomeComponent } from './pages/home/home.component';
 
 
 
 @NgModule({
   declarations: [
     SucursalesComponent,
-    EmpresasComponent
+    EmpresasComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
