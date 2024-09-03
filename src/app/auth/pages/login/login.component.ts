@@ -16,8 +16,8 @@ export class LoginComponent {
 
   //TODO: Implement form [formGroup]="myForm" (ngSubmit)="login()" in html and call auth service on submit
   public myForm: FormGroup = this.fb.group({
-    username: ["Hassan", [Validators.required, Validators.email]],//PRELOADED CREDENTIALS
-    password: ["Mr.Password", [Validators.required, Validators.minLength(6)]],//FOR TESTING
+    username: ["Hassan", [Validators.required, Validators.maxLength(12)]],//PRELOADED CREDENTIALS
+    password: ["Mr.Password", [Validators.required, Validators.maxLength(100)]],//FOR TESTING
   })
 
   // login(){
