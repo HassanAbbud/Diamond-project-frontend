@@ -1,6 +1,6 @@
-import { LayoutService } from './service/app.layout.service';
+import { LayoutService } from '../service/app.layout.service';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { AppSidebarComponent } from './app.sidebar.component';
+import { AppSidebarComponent } from '../sidebar/app.sidebar.component';
 
 @Component({
     selector: 'app-topbar',

@@ -18,11 +18,10 @@ import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppLayoutComponent } from './app.layout.component';
-import { AppSidebarComponent } from './app.sidebar.component';
-import { AppTopbarComponent } from './app.topbar.component';
+import { AppSidebarComponent } from './sidebar/app.sidebar.component';
+import { AppTopbarComponent } from './topbar/app.topbar.component';
 import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
-import { AppSearchComponent } from './app.search.component';
 import { AppFooterComponent } from './footer/app.footer.component';
 
 @NgModule({
@@ -33,7 +32,6 @@ import { AppFooterComponent } from './footer/app.footer.component';
 
         AppMenuComponent,
         AppMenuitemComponent,
-        AppSearchComponent,
         AppFooterComponent
     ],
     imports: [
