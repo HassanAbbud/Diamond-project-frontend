@@ -24,7 +24,7 @@
   [value]="empresas"
   [rows]="10"
   [paginator]="true"
-  [globalFilterFields]="['nombreEmpresa', 'claveEmpresa', 'activo']"
+  [globalFilterFields]="['nombreEmpresa', 'claveEmpresa', 'activo', 'usuario.usuario']"
   [tableStyle]="{ 'min-width': '75rem' }"
   [(selection)]="selectedEmpresas"
   [rowHover]="true"
@@ -41,7 +41,7 @@
         pInputText
         type="text"
         (input)="filterGlobal(dt, $event)"
-        placeholder="Search..."
+        placeholder="Buscar..."
       />
       </span>
     </div>
@@ -60,6 +60,10 @@
       <th pSortableColumn="activo">
         Estatus <p-sortIcon field="activo"></p-sortIcon>
       </th>
+      <th pSortableColumn="usuario.usuario">
+        Creado por <p-sortIcon field="usuario.usuario"></p-sortIcon>
+      </th>
+
       <th style="width: 10rem"></th>
     </tr>
   </ng-template>
@@ -76,6 +80,7 @@
           [severity]="empresa.activo ? 'success' : 'danger'"
         ></p-tag>
       </td>
+      <td>{{ empresa.usuario?.usuario || 'NULL'}}</td>
       <td>
         <p-button
           icon="pi pi-pencil"

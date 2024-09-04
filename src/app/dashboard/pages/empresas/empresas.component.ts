@@ -47,23 +47,37 @@ export class EmpresasComponent {
 
   deleteSelectedEmpresas() {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected empresas?',
-      header: 'Confirm',
+      message: '¿Seguro que desea borrar las empresas seleccionadas?',
+      header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
       accept: () => {
-        this.empresas = this.empresas.filter(
-          (val) => !this.selectedEmpresas?.includes(val)
-        );
-        this.selectedEmpresas = null;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Empresas Deleted',
-          life: 3000
-        });
+        const idsToDelete = this.selectedEmpresas
+          ?.map(emp => emp.idEmpresa)
+          .filter((id): id is number => id !== undefined); // Filter out undefined values
+
+        if (idsToDelete && idsToDelete.length > 0) {
+          idsToDelete.forEach(id => {
+            this.empresaService.deleteEmpresa(id).subscribe(() => {
+              // Update local list after each deletion
+              this.empresas = this.empresas.filter(empresa => empresa.idEmpresa !== id);
+            });
+          });
+
+          this.selectedEmpresas = null;
+          this.messageService.add({
+            severity: 'success',
+            summary: '¡Exitoso!',
+            detail: 'Empresas borradas',
+            life: 3000
+          });
+        }
       }
     });
   }
+
+
 
   editEmpresa(empresa: Empresa) {
     this.empresa = { ...empresa };
@@ -72,9 +86,11 @@ export class EmpresasComponent {
 
   deleteEmpresa(empresa: Empresa) {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete ${empresa.nombreEmpresa}?`,
-      header: 'Confirm',
+      message: `¿Seguro que desea borrar ${empresa.nombreEmpresa}?`,
+      header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
       accept: () => {
         this.empresaService.deleteEmpresa(empresa.idEmpresa!).subscribe(() => {
           this.empresas = this.empresas.filter(
@@ -83,8 +99,8 @@ export class EmpresasComponent {
           this.empresa = {} as Empresa;
           this.messageService.add({
             severity: 'success',
-            summary: 'Successful',
-            detail: 'Empresa Deleted',
+            summary: '¡Exitoso!',
+            detail: 'Empresa borrada',
             life: 3000
           });
         });
@@ -106,8 +122,8 @@ export class EmpresasComponent {
           this.loadEmpresas();
           this.messageService.add({
             severity: 'success',
-            summary: 'Successful',
-            detail: 'Empresa Updated',
+            summary: '¡Exitoso!',
+            detail: 'Empresa actualizada',
             life: 3000
           });
         });
@@ -116,8 +132,8 @@ export class EmpresasComponent {
           this.loadEmpresas();
           this.messageService.add({
             severity: 'success',
-            summary: 'Successful',
-            detail: 'Empresa Created',
+            summary: '¡Exitoso!',
+            detail: 'Empresa creada',
             life: 3000
           });
         });
