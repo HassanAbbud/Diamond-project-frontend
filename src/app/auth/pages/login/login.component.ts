@@ -20,13 +20,12 @@ export class LoginComponent {
     password: ["Mr.Password", [Validators.required, Validators.maxLength(100)]],//FOR TESTING
   })
 
-  // login(){
-  //   const {email, password} = this.myForm.value;
-
-  //   this.authService.login(email, password)
-  //   .subscribe({
-  //     next: () => this.router.navigate(['/dashboard']),
-  //     error: (message) => {Swal.fire('Error', message, 'error')}
-  //   })
-  // }
+  login(){
+    const {username, password} = this.myForm.value;
+    this.authService.login(username, password)
+    .subscribe({
+      next: () => this.router.navigate(['/dashboard/home']),
+      error: (message) => {console.log('Error', message, 'error')}
+    })
+  }
 }

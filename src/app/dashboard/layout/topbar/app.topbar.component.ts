@@ -1,33 +1,41 @@
 import { LayoutService } from '../service/app.layout.service';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { AppSidebarComponent } from '../sidebar/app.sidebar.component';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html',
 })
 export class AppTopbarComponent {
-    @ViewChild('menubutton') menuButton!: ElementRef;
 
-    @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
+  @ViewChild('menubutton') menuButton!: ElementRef;
 
-    private layoutService = inject(LayoutService);
-    constructor( public el: ElementRef) {}
+  @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
 
-    onMenuButtonClick() {
-        this.layoutService.onMenuToggle();
-    }
+  private layoutService = inject(LayoutService);
+  private authService = inject(AuthService)
 
-    onSearchClick() {
-        this.layoutService.toggleSearchBar();
-    }
+  constructor( public el: ElementRef) {}
 
-    get logo() {
-        const logo =
-            this.layoutService.config().menuTheme === 'white' ||
-            this.layoutService.config().menuTheme === 'orange'
-                ? 'dark'
-                : 'white';
-        return logo;
-    }
+  onMenuButtonClick() {
+      this.layoutService.onMenuToggle();
+  }
+
+  onSearchClick() {
+      this.layoutService.toggleSearchBar();
+  }
+
+  get logo() {
+      const logo =
+          this.layoutService.config().menuTheme === 'white' ||
+          this.layoutService.config().menuTheme === 'orange'
+              ? 'dark'
+              : 'white';
+      return logo;
+  }
+
+  onLogout() {
+    this.authService.logout();
+  }
 }

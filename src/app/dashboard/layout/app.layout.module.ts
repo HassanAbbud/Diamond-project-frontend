@@ -23,6 +23,8 @@ import { AppTopbarComponent } from './topbar/app.topbar.component';
 import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { AppFooterComponent } from './footer/app.footer.component';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @NgModule({
     declarations: [
@@ -52,7 +54,9 @@ import { AppFooterComponent } from './footer/app.footer.component';
         DropdownModule,
         DividerModule,
         DialogModule,
-        StyleClassModule
+        StyleClassModule,
+        AvatarModule,
+        AvatarGroupModule
     ]
 })
 export class AppLayoutModule { }
