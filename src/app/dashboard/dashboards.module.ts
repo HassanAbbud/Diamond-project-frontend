@@ -19,6 +19,10 @@ import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { TagModule } from 'primeng/tag';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -45,7 +49,14 @@ import { ToolbarModule } from 'primeng/toolbar';
 		DropdownModule,
 		RadioButtonModule,
 		InputNumberModule,
-		DialogModule
+		DialogModule,
+    TagModule,
+    ConfirmDialogModule
+  ],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    MessageService,
+    ConfirmationService
   ]
 })
 export class DashboardModule { }
