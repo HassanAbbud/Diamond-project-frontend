@@ -1,5 +1,7 @@
 <h1 *ngIf="!finishedAuthCheck()">
-  Loading
+  <div class="card">
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" />
+</div>
 </h1>
 
 <router-outlet *ngIf="finishedAuthCheck()" />

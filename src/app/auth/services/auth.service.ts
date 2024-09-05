@@ -23,7 +23,18 @@ export class AuthService {
   private http = inject(HttpClient);
 
   constructor() {
-    this.checkAuthStatus().subscribe();
+    const storedUser = localStorage.getItem('currentUser');
+    const storedToken = localStorage.getItem('token');
+
+    if (storedUser && storedToken) {
+      // Restore user and token from localStorage
+      this._currentUser.set(JSON.parse(storedUser));
+      this._authStatus.set(AuthStatus.authenticated);
+    } else {
+      // Perform checkAuthStatus if no user is stored
+      this.checkAuthStatus().subscribe();
+    }
+
   }
 
   checkAuthStatus(): Observable<boolean>{
@@ -39,7 +50,7 @@ export class AuthService {
 
     return this.http.get<CheckTokenResponse>(url, {headers})
       .pipe(
-        map(({token, usuario}) => this.setAuthentication(usuario, token)),
+        map(({usuario, token}) => this.setAuthentication(usuario, token)),
         catchError(error => {
           this._authStatus.set(AuthStatus.notAuthenticated);
           return of(false)
@@ -52,6 +63,7 @@ export class AuthService {
     this._currentUser.set( usuario );
     this._authStatus.set( AuthStatus.authenticated );
     localStorage.setItem('token', token);
+    localStorage.setItem('currentUser', JSON.stringify(usuario));
 
     return true;
   }
@@ -70,5 +82,6 @@ export class AuthService {
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
     localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
   }
 }

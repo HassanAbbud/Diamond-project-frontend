@@ -8,7 +8,7 @@
           <h2>Inicie sesión en su cuenta</h2>
         </div>
         <input formControlName="username" pInputText placeholder="Nombre de usuario" class="w-20rem"/>
-        <p-password formControlName="password" placeholder="Contraseña" [feedback]="false" inputStyleClass="w-20rem"></p-password>
+        <p-password formControlName="password" placeholder="Contraseña" [feedback]="false" [toggleMask]="true" inputStyleClass="w-20rem"></p-password>
           <div *ngIf="errorMessage" class="p-error mb-3">
             {{ errorMessage }}
           </div>
