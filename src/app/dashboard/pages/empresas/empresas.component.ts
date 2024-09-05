@@ -116,6 +116,15 @@ export class EmpresasComponent {
   saveEmpresa() {
     this.submitted = true;
 
+    // Validate required fields
+  if (!this.empresa.nombreEmpresa || !this.empresa.nombreEmpresa.trim()) {
+    return;
+  }
+
+  if (!this.empresa.claveEmpresa || !this.empresa.claveEmpresa.trim()) {
+    return;
+  }
+
     if (this.empresa.nombreEmpresa.trim()) {
       if (this.empresa.idEmpresa) {
         this.empresaService.updateEmpresa(this.empresa).subscribe(() => {

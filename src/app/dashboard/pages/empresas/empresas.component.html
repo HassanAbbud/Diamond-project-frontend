@@ -153,8 +153,8 @@
         inputId="activo"
         optionValue="value"
         [options]="statuses"
-        placeholder="Select">
-
+        placeholder="Select"
+        >
 
         <ng-template pTemplate="selectedItem">
             <span *ngIf="empresa && empresa.activo !== null" [class]="'product-badge status-' + (empresa.activo ? 'activo' : 'inactivo')">
@@ -168,6 +168,9 @@
             </span>
         </ng-template>
       </p-dropdown>
+      <small class="p-error" *ngIf="submitted && empresa.activo === null">
+        Estatus es requerido.
+      </small>
     </div>
 
   </ng-template>
