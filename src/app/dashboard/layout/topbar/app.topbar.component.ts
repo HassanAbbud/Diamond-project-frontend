@@ -14,7 +14,9 @@ export class AppTopbarComponent {
   @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
 
   private layoutService = inject(LayoutService);
-  private authService = inject(AuthService)
+  private authService = inject(AuthService);
+
+  currentUser = this.authService.currentUser;
 
   constructor( public el: ElementRef) {}
 

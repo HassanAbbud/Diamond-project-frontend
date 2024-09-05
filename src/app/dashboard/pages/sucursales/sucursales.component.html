@@ -1,1 +1,215 @@
-<p>sucursales works!</p>
+<p-toast></p-toast>
+
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <p-button
+      severity="success"
+      label="Nuevo"
+      icon="pi pi-plus"
+      class="mr-2"
+      (onClick)="openNew()"
+    ></p-button>
+    <p-button
+      severity="danger"
+      label="Borrar"
+      icon="pi pi-trash"
+      (onClick)="deleteSelectedSucursales()"
+      [disabled]="!selectedSucursales || !selectedSucursales.length"
+    ></p-button>
+  </ng-template>
+</p-toolbar>
+
+<p-table
+  #dt
+  [value]="sucursales"
+  [rows]="10"
+  [paginator]="true"
+  [globalFilterFields]="['nombreSucursal', 'ciudad', 'estado', 'activo', 'empresa']"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [(selection)]="selectedSucursales"
+  [rowHover]="true"
+  dataKey="idSucursal"
+  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h5 class="m-0">Administrar Sucursales</h5>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="filterGlobal(dt, $event)"
+          placeholder="Buscar..."
+        />
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th pSortableColumn="nombreSucursal" style="min-width:15rem">
+        Nombre <p-sortIcon field="nombreSucursal"></p-sortIcon>
+      </th>
+      <th pSortableColumn="ciudad">
+        Ciudad <p-sortIcon field="ciudad"></p-sortIcon>
+      </th>
+      <th pSortableColumn="estado">
+        Estado <p-sortIcon field="estado"></p-sortIcon>
+      </th>
+      <th pSortableColumn="activo">
+        Estatus <p-sortIcon field="activo"></p-sortIcon>
+      </th>
+      <th pSortableColumn="empresa">
+        Empresa <p-sortIcon field="empresa"></p-sortIcon>
+      </th>
+      <th style="width: 10rem"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-sucursal>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="sucursal"></p-tableCheckbox>
+      </td>
+      <td>{{ sucursal.nombreSucursal }}</td>
+      <td>{{ sucursal.ciudad }}</td>
+      <td>{{ sucursal.estado }}</td>
+      <td>
+        <p-tag
+          [value]="sucursal.activo ? 'Activo' : 'Inactivo'"
+          [severity]="sucursal.activo ? 'success' : 'danger'"
+        ></p-tag>
+      </td>
+      <td>{{sucursal.empresa.nombreEmpresa}}</td>
+      <td>
+        <p-button
+          icon="pi pi-pencil"
+          class="mr-2"
+          [rounded]="true"
+          [outlined]="true"
+          severity="success"
+          (onClick)="editSucursal(sucursal)"
+        ></p-button>
+        <p-button
+          icon="pi pi-trash"
+          severity="danger"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="deleteSucursal(sucursal)"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      En total, hay {{ sucursales ? sucursales.length : 0 }} sucursales.
+    </div>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="sucursalDialog"
+  [style]="{ width: '450px' }"
+  header="Detalles de Sucursal"
+  [modal]="true"
+  styleClass="p-fluid"
+  [contentStyle]="{'overflow-y':'visible'}"
+>
+  <ng-template pTemplate="content">
+
+    <div class="field">
+      <label for="nombreSucursal">Nombre de sucursal</label>
+      <input
+        type="text"
+        pInputText
+        id="nombreSucursal"
+        [(ngModel)]="sucursal.nombreSucursal"
+        required
+        autofocus
+        [class]="{ 'p-invalid': submitted && !sucursal.nombreSucursal }"
+      />
+      <div *ngIf="submitted && !sucursal.nombreSucursal" class="p-error">
+        Se requiere el nombre de la sucursal.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="ciudad">Ciudad</label>
+      <input
+        type="text"
+        pInputText
+        id="ciudad"
+        [(ngModel)]="sucursal.ciudad"
+        required
+        autofocus
+        [class]="{ 'p-invalid': submitted && !sucursal.ciudad }"
+      />
+      <div *ngIf="submitted && !sucursal.ciudad" class="p-error">
+        Se requiere la ciudad.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="estado">Estado</label>
+      <input
+        type="text"
+        pInputText
+        id="estado"
+        [(ngModel)]="sucursal.estado"
+        required
+        autofocus
+        [class]="{ 'p-invalid': submitted && !sucursal.estado }"
+      />
+      <div *ngIf="submitted && !sucursal.estado" class="p-error">
+        Se requiere el estado.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="activo">Estatus</label>
+      <p-dropdown
+        id="activo"
+        [(ngModel)]="sucursal.activo"
+        [options]="statuses"
+        optionLabel="label"
+        optionValue="value"
+        [showClear]="true"
+        placeholder="Seleccione el estatus"
+        [class]="{ 'p-invalid': submitted && sucursal.activo === undefined }"
+      ></p-dropdown>
+      <div *ngIf="submitted && sucursal.activo === undefined" class="p-error">
+        Se requiere seleccionar el estatus.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="empresa">Empresa</label>
+      <p-dropdown
+        id="empresa"
+        [options]="empresas"
+        [(ngModel)]="selectedEmpresa"
+        optionLabel="nombreEmpresa"
+        placeholder="Selecciona una empresa"
+        required
+        [class]="{ 'p-invalid': submitted && !selectedEmpresa }"
+      ></p-dropdown>
+      <div *ngIf="submitted && !selectedEmpresa" class="p-error">
+        Se requiere seleccionar una empresa.
+      </div>
+    </div>
+
+
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" icon="pi pi-times" (onClick)="hideDialog()" class="p-button-text"></p-button>
+    <p-button label="Guardar" icon="pi pi-check" (onClick)="saveSucursal()" autofocus></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" />

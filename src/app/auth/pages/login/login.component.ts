@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router)
 
+  public errorMessage: string = "";
 
   //TODO: Implement form [formGroup]="myForm" (ngSubmit)="login()" in html and call auth service on submit
   public myForm: FormGroup = this.fb.group({
@@ -25,7 +27,10 @@ export class LoginComponent {
     this.authService.login(username, password)
     .subscribe({
       next: () => this.router.navigate(['/dashboard/home']),
-      error: (message) => {console.log('Error', message, 'error')}
+      error: (message) => {
+        this.errorMessage = "Usuario o contraseña incorrectos. Por favor, intente nuevamente",
+        console.error('Error', message);
+      }
     })
   }
 }

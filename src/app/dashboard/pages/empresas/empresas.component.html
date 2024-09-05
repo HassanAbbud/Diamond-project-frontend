@@ -149,26 +149,16 @@
     <div class="field">
       <label for="activo">Estatus</label>
       <p-dropdown
-        [(ngModel)]="empresa.activo"
-        inputId="activo"
-        optionValue="value"
-        [options]="statuses"
-        placeholder="Select"
-        >
-
-        <ng-template pTemplate="selectedItem">
-            <span *ngIf="empresa && empresa.activo !== null" [class]="'product-badge status-' + (empresa.activo ? 'activo' : 'inactivo')">
-              {{empresa.activo ? 'Activo' : 'Inactivo'}}
-            </span>
-        </ng-template>
-
-        <ng-template let-option pTemplate="item">
-            <span [class]="'product-badge status-' + (option.value ? 'activo' : 'inactivo')">
-              {{option.label}}
-            </span>
-        </ng-template>
-      </p-dropdown>
-      <small class="p-error" *ngIf="submitted && empresa.activo === null">
+      id="activo"
+      [(ngModel)]="empresa.activo"
+      [options]="statuses"
+      optionLabel="label"
+      optionValue="value"
+      [showClear]="true"
+      placeholder="Seleccione el estatus"
+      [class]="{ 'p-invalid': submitted && empresa.activo === undefined }"
+    ></p-dropdown>
+      <small class="p-error" *ngIf="submitted && empresa.activo === undefined">
         Estatus es requerido.
       </small>
     </div>
